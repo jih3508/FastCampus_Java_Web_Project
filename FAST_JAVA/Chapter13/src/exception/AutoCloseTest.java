@@ -11,5 +11,4 @@ public class AutoCloseTest {
 			System.out.println(e);
 		}
 	}
-
 }

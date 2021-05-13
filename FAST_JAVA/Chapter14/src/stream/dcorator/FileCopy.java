@@ -35,6 +35,8 @@ public class FileCopy {
 		//Socket socket = new Socket();
 		
 		//InputStreamReader isr = new InputStreamReader(socket.getInputStream());
+		
+		// isr.readLine();
 			
 		
 	}

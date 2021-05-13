@@ -9,7 +9,7 @@ public class InterruptTest extends Thread{
 		}
 		
 		try {
-			sleep(5000);
+			sleep(50000);
 		} catch (InterruptedException e) {
 			System.out.println(e);
 			System.out.println("Wake !!!");

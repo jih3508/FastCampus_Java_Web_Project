@@ -8,9 +8,14 @@ import java.io.InputStreamReader;
 public class FileReaderTest {
 
 	public static void main(String[] args) throws IOException {
-		FileReader fis = new FileReader("reader.txt");
+		FileReader fr = new FileReader("reader.txt");
+		FileInputStream fis = new FileInputStream("reader.txt");
 		fis.read();
 		int i;
+		while((i = fr.read()) != -1) {
+			System.out.print((char) i);
+		}
+		System.out.println();
 		while((i = fis.read()) != -1) {
 			System.out.print((char) i);
 		}

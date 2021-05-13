@@ -15,7 +15,7 @@ public class FileOutputTest2 {
 			data++;
 		}
 		
-		try(FileOutputStream fos = new FileOutputStream("alpha.txt", true);
+		try(FileOutputStream fos = new FileOutputStream("alpha.txt", true); //true 사용 뒤에 내용 추가한다.
 			FileInputStream fis = new FileInputStream("alpha.txt")){
 			
 			fos.write(bs);

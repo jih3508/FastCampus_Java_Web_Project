@@ -10,12 +10,12 @@ public class CoffeeTest {
 		
 		Coffee kenyaLatte = new Latte(new KenyaAmericano());
 		kenyaLatte.brewing();
-		
 		System.out.println();
+		
 		Coffee kenyaMocha = new Mocha(new Latte(new KenyaAmericano()));
 		kenyaMocha.brewing();
-		
 		System.out.println();
+		
 		Coffee etiopiaMocha = new Mocha(new Latte(new EtiopiaAmericano()));
 		etiopiaMocha.brewing();
 	}

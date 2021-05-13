@@ -11,6 +11,7 @@ public class SystemInTest2 {
 		
 		try {
 			int i;
+			// InputStreamReader: 보조스트림) 바이트로 읽은것을 문자로 바꿔주는 스트림
 			InputStreamReader isr = new InputStreamReader(System.in);
 			while((i = isr.read()) != '끝') {
 				System.out.print((char)i);

@@ -20,7 +20,8 @@ public class DataStreamTest {
 			dos.writeChar('A');
 			dos.writeUTF("안녕하세요");
 			
-			System.out.println(dis.readByte());
+			// 작성할때 wirte에 매핑한것이랑 똑같은것 사용해야 한다.
+			System.out.println(dis.readByte()); 
 			System.out.println(dis.read());
 			System.out.println(dis.readChar());
 			System.out.println(dis.readUTF());

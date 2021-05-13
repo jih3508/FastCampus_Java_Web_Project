@@ -43,7 +43,7 @@ public class SerializationTest {
 		Person personKim = new Person("김유신", "엔지니어");
 		
 		try(FileOutputStream fos = new FileOutputStream("serial.dat");
-			ObjectOutputStream oos = new ObjectOutputStream(fos)){
+			ObjectOutputStream oos = new ObjectOutputStream(fos)){ // 객체 단위로 출력하기 위한 보조 스트림
 			oos.writeObject(personLee);
 			oos.writeObject(personKim);
 		}catch(IOException e) {
