@@ -24,9 +24,17 @@ public class User {
     //@Column(name = "account") -> attribute와 이름이 같으면 설정 할 필요 없음
     private String account;
 
+    private String password;
+
+    private String status;
+
     private String email;
 
     private String phoneNumber;
+
+    private LocalDateTime registeredAt;
+
+    private LocalDateTime unregisteredAt;
 
     private LocalDateTime createdAt;
 
@@ -35,9 +43,5 @@ public class User {
     private LocalDateTime updatedAt;
 
     private String updatedBy;
-
-    // 1 : N
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "user") // mappedBy에 관계 설정 변수명이랑 일치 해야한다.
-    private List<OrderDetail>  orderDetailList;
 
 }

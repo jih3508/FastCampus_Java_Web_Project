@@ -41,6 +41,7 @@ public class UserRepositoryTest  extends StudyApplicationTests {
 
         Optional<User> user = userRepository.findByAccount("TestUser03");
 
+        /*
         user.ifPresent(selectUser ->{ //ifPresent : null이 아닌경우 로직을 돌린다.
             selectUser.getOrderDetailList().stream().forEach(detail ->{
 
@@ -48,7 +49,7 @@ public class UserRepositoryTest  extends StudyApplicationTests {
                 System.out.println(item);
             });
         });
-
+        */
     }
 
     @Test
