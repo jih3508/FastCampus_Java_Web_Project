@@ -39,7 +39,7 @@ public class UserRepositoryTest  extends StudyApplicationTests {
     @Transactional
     public void read(){
 
-        Optional<User> user = userRepository.findById(1L);
+        Optional<User> user = userRepository.findByAccount("TestUser03");
 
         user.ifPresent(selectUser ->{ //ifPresent : null이 아닌경우 로직을 돌린다.
             selectUser.getOrderDetailList().stream().forEach(detail ->{
