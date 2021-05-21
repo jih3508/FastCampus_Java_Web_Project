@@ -8,6 +8,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
 @NoArgsConstructor
@@ -30,7 +31,7 @@ public class OrderGroup {
 
     private String paymentType; // 카드 / 현금
 
-    private Integer totalPrice;
+    private BigDecimal totalPrice;
 
     private Integer totalQuantity;
 
@@ -45,4 +46,6 @@ public class OrderGroup {
     private LocalDateTime updatedAt;
 
     private String updatedBy;
+
+    private Long userId;
 }
