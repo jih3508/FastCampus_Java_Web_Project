@@ -15,6 +15,7 @@ import java.util.List;
 @NoArgsConstructor
 @Entity // ==table
 //@Table(name = "user") -> 테이블 이름과 동일하면 설정 할 필요없음
+@ToString(exclude = {"orderGroup"})
 public class User {
 
     @Id
@@ -43,5 +44,9 @@ public class User {
     private LocalDateTime updatedAt;
 
     private String updatedBy;
+
+    // User 1 : OrderGroup
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "user")
+    private List<OrderGroup> orderGroupList;
 
 }
