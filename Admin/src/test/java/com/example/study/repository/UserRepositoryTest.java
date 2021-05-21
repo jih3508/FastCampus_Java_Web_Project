@@ -22,11 +22,11 @@ public class UserRepositoryTest  extends StudyApplicationTests {
 
     @Test
     public  void create(){
-        String account = "Test01";
-        String password = "Test01";
+        String account = "Test04";
+        String password = "Test04";
         String status = "REGISTERED";
-        String email = "Test01@gmail.com";
-        String phoneNumber = "010-1111-2222";
+        String email = "Test03@gmail.com";
+        String phoneNumber = "010-1111-4444";
         LocalDateTime registeredAt = LocalDateTime.now();
         LocalDateTime createdAt = LocalDateTime.now();
         String createdBy = "AdminServer";
@@ -38,11 +38,13 @@ public class UserRepositoryTest  extends StudyApplicationTests {
         user.setEmail(email);
         user.setPhoneNumber(phoneNumber);
         user.setRegisteredAt(registeredAt);
-        user.setCreatedAt(createdAt);
-        user.setCreatedBy(createdBy);
+
+        User u = User.builder().account(account)
+                .password(password)
+                .status(status)
+                .email(email).build();
 
         User newUser = userRepository.save(user);
-
         Assertions.assertNotNull(newUser);
     }
 
@@ -50,6 +52,16 @@ public class UserRepositoryTest  extends StudyApplicationTests {
     @Transactional
     public void read(){
         User user = userRepository.findFirstByPhoneNumberOrderByIdDesc("010-1111-2222");
+
+        /*
+        bulider 사용
+        user.setEmail("")
+                .setPhoneNumber("")
+                .setStatus("");
+
+        Chain 사용
+        User u = new User().setAccount("").setEmail("").setPassword("");
+        */
 
         if(user != null){
 
