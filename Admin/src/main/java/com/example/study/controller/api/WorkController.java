@@ -32,6 +32,7 @@ public class WorkController implements CrudInterface<UserApiRequest, UserApiResp
         UserApiRequest userApiRequest = request.getData();
 
         Optional<User> optional = userRepository.findByEmail(userApiRequest.getEmail());
+        
 
         if (optional == null) {
             return Header.ERROR("409 Conflict, 중복된 이메일 있습니다.");
