@@ -27,13 +27,16 @@ public class WorkController implements CrudInterface<UserApiRequest, UserApiResp
 
     @Override
     @PostMapping("")
-    public Header<UserApiResponse> create(Header<UserApiRequest> request) {
+    public Header<UserApiResponse> create(Header<UserApiRequest> request) throws NullPointerException{
 
         UserApiRequest userApiRequest = request.getData();
 
+        Optional<User> optional = userRepository.findByEmail(userApiRequest.getEmail());
 
-        userRepository.findByEmail(userApiRequest.getEmail()).e
-                .ifPresent(user->Header.ERROR("409 Conflict, 중복된 이메일 있습니다.")).;
+        if (optional == null) {
+            return Header.ERROR("409 Conflict, 중복된 이메일 있습니다.");
+        }
+        else {
             User user = User.builder()
                     .account(userApiRequest.getAccount())
                     .password(userApiRequest.getPassword())
@@ -45,31 +48,8 @@ public class WorkController implements CrudInterface<UserApiRequest, UserApiResp
 
             User newUser = userRepository.save(user);
 
-            return (Header<UserApiResponse>)response(newUser);
-        }else{
-            return Header.ERROR("409 Conflict, 중복된 이메일 있습니다.");
+            return response(newUser);
         }
-
-        /*
-        return userRepository.findByEmail(userApiRequest.getEmail())
-                .ifPresent(user ->Header.ERROR("409 Conflict, 중복된 이메일 있습니다."))
-                .orElseGet(() ->{
-                    User user = User.builder()
-                            .account(userApiRequest.getAccount())
-                            .password(userApiRequest.getPassword())
-                            .status("REGISTERED")
-                            .phoneNumber(userApiRequest.getPhoneNumber())
-                            .email(userApiRequest.getPhoneNumber())
-                            .registeredAt(LocalDateTime.now())
-                            .build();
-
-                    User newUser = userRepository.save(user);
-
-                    return (Header<UserApiResponse>)response(newUser);
-                });
-
-         */
-
     }
 
     @Override
