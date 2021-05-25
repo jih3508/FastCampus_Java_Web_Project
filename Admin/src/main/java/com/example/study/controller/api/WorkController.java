@@ -10,7 +10,9 @@ import com.example.study.repository.UserRepository;
 import lombok.Data;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -20,6 +22,7 @@ import java.util.Optional;
 @Slf4j
 @RestController
 @RequestMapping("/api/workUser")
+@Service
 public class WorkController implements CrudInterface<UserApiRequest, UserApiResponse> {
 
     @Autowired
@@ -27,12 +30,12 @@ public class WorkController implements CrudInterface<UserApiRequest, UserApiResp
 
     @Override
     @PostMapping("")
-    public Header<UserApiResponse> create(Header<UserApiRequest> request) throws NullPointerException{
+    public Header<UserApiResponse> create(@RequestBody Header<UserApiRequest> request) throws NullPointerException{
 
         UserApiRequest userApiRequest = request.getData();
 
         Optional<User> optional = userRepository.findByEmail(userApiRequest.getEmail());
-        
+
 
         if (optional == null) {
             return Header.ERROR("409 Conflict, 중복된 이메일 있습니다.");
