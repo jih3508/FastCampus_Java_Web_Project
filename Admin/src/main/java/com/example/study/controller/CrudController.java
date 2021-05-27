@@ -1,4 +1,4 @@
-package com.example.study.controller.api;
+package com.example.study.controller;
 
 import com.example.study.ifs.CrudInterface;
 import com.example.study.model.network.Header;
