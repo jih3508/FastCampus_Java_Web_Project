@@ -30,7 +30,7 @@ public class Partner {
 
     private String status;
 
-    private  String address;
+    private String address;
 
     private String callCenter;
 

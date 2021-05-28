@@ -4,6 +4,7 @@ import com.example.study.model.entity.Partner;
 import com.example.study.model.network.Header;
 import com.example.study.model.network.request.PartnerApiRequest;
 import com.example.study.model.network.response.PartnerApiResponse;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 @Service
