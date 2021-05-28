@@ -20,7 +20,6 @@ import java.util.List;
 @Entity // ==table
 //@Table(name = "user") -> 테이블 이름과 동일하면 설정 할 필요없음
 @ToString(exclude = {"orderGroup"})
-@EntityListeners(AuditingEntityListener.class)
 @Builder
 @Accessors(chain = true)
 public class User {
