@@ -98,7 +98,6 @@ public class UserApiLogicService implements CrudInterface<UserApiRequest, UserAp
           .map(updateUser -> response(updateUser))
           .map(Header::OK)
           .orElseGet(() -> Header.ERROR("데이터 없음"));
-
     }
 
     @Override
