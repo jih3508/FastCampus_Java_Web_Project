@@ -44,20 +44,26 @@ public class SettlementApiLogicService {
     }
 
     //물건 구입하면 새로 추가 한다.
-    public Header<SettlementApiResponse> updateTotalPrice(Long userId, Long itemId){
+    public Header<SettlementApiResponse> updateTotalPrice(Long userId, Long itemId) throws NullPointerException{
 
         // 아이템과 유저의 정보를 찾아 낸다.
         Optional<User> userOptional = userRepository.findById(userId);
         Optional<Item> itemOptional = itemRepository.findById(itemId);
 
         if(userOptional.isPresent() && itemOptional.isPresent()){
-            BigDecimal price = itemOptional.map(item -> item.getPrice());
+            BigDecimal price = itemOptional.get().getPrice();
 
             return settlementRepository.findById(userId)
                     .map(settlement ->{
-                        settlement.setPrice(settlement.getPrice().add(itemOptional.))
-                    });
+                        settlement.setPrice(settlement.getPrice().add(price));
+                        return settlement;
+                    })
+                    .map(settlement -> settlementRepository.save(settlement))
+                    .map(this::response)
+                    .map(Header::OK)
+                    .orElseGet(()->Header.ERROR("No Data!!"));
         }
+        return Header.ERROR("데이터 없습니다");
     }
 
     private Header<SettlementApiResponse> response(Settlement settlement){
