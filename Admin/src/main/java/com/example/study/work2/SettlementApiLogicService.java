@@ -25,7 +25,6 @@ public class SettlementApiLogicService {
     UserRepository userRepository;
 
     // 회원 생성시 Settlement도 같이 생성된다.
-    //
     public void create(Long userId){
 
         Settlement settlement = Settlement.builder()
@@ -51,7 +50,7 @@ public class SettlementApiLogicService {
         Optional<Item> itemOptional = itemRepository.findById(itemId);
 
         if(userOptional.isPresent() && itemOptional.isPresent()){
-            BigDecimal price = itemOptional.get().getPrice();
+            BigDecimal price = itemOptional.get().getPrice(); // 아이템의 값을 추가 한다.
 
             return settlementRepository.findById(userId)
                     .map(settlement ->{
@@ -60,7 +59,6 @@ public class SettlementApiLogicService {
                     })
                     .map(settlement -> settlementRepository.save(settlement))
                     .map(this::response)
-                    .map(Header::OK)
                     .orElseGet(()->Header.ERROR("No Data!!"));
         }
         return Header.ERROR("데이터 없습니다");

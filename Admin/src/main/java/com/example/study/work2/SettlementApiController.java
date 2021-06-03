@@ -11,8 +11,6 @@ public class SettlementApiController {
 
     private SettlementApiLogicService settlementApiLogicService;
 
-
-
     @GetMapping("{id}")
     public Header<SettlementApiResponse> read(@PathVariable(name = "id") Long id){
         return settlementApiLogicService.read(id);
