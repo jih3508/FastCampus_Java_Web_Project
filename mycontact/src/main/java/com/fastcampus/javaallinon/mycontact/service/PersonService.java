@@ -22,11 +22,11 @@ public class PersonService {
     private BlockRepository blockRepository;
 
     public List<Person> getPeopleExcludeBlocks(){
-        List<Person> people = personRepository.findAll();
+        return  personRepository.findByBlockIsNull();
+    }
 
-        return people.stream()
-                .filter(person -> person.getBlock() == null)
-                .collect(Collectors.toList());
+    public List<Person> getPeopleByName(String name){
+        return personRepository.findByName(name);
     }
 
     @Transactional(readOnly = true)
