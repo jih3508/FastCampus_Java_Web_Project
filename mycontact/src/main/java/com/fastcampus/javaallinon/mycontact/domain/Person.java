@@ -6,7 +6,7 @@ import lombok.*;
 
 import javax.persistence.*;
 import javax.validation.Valid;
-import java.time.LocalDate;
+
 
 @Entity
 @NoArgsConstructor
@@ -15,7 +15,7 @@ import java.time.LocalDate;
 @Data
 public class Person {
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @NonNull

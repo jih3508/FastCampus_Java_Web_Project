@@ -22,7 +22,7 @@ class PersonRepositoryTest {
     @Test
     void crud(){
         Person person = new Person();
-        person.setName("martin");
+        person.setName("john");
         person.setAge(10);
         person.setBloodType("A");
 
@@ -32,13 +32,13 @@ class PersonRepositoryTest {
 
         List<Person> people = personRepository.findAll();
 
-        Assertions.assertThat(people.size()).isEqualTo(1);
-        Assertions.assertThat(people.get(0).getName()).isEqualTo("martin");
-        Assertions.assertThat(people.get(0).getAge()).isEqualTo(10);
-        Assertions.assertThat(people.get(0).getBloodType()).isEqualTo("A");
+        Assertions.assertThat(people.size()).isEqualTo(2);
+        Assertions.assertThat(people.get(1).getName()).isEqualTo("john");
+        Assertions.assertThat(people.get(1).getAge()).isEqualTo(10);
+        Assertions.assertThat(people.get(1).getBloodType()).isEqualTo("A");
     }
 
-    @Test
+   /* @Test
     void hashCodAndEquals(){
         Person person1 = new Person("martin", 10, "A");
         Person person2 = new Person("martin", 10, "A");
@@ -53,6 +53,7 @@ class PersonRepositoryTest {
         System.out.println(map);
         System.out.println(map.get(person2));
     }
+*/
 
     @Test
     void findByBloodType(){
@@ -69,15 +70,18 @@ class PersonRepositoryTest {
 
     @Test
     void findByBirthdayBetween(){
+        /*
         givenPerson("martin", 10, "A", LocalDate.of(1991,8,15));
         givenPerson("david", 9, "B", LocalDate.of(1992,7,10));
         givenPerson("dennis", 8, "O", LocalDate.of(1993,1,5));
         givenPerson("sophia", 7, "AB",LocalDate.of(1994,6,30));
         givenPerson("benny", 6, "A",LocalDate.of(1995,8,30));
-
+        */
         List<Person> result = personRepository.findByMonthOfBirthday(8);
 
-        result.forEach(System.out::println);
+        Assertions.assertThat(result.size()).isEqualTo(2);
+        Assertions.assertThat(result.get(0).getName()).isEqualTo("martin");
+        Assertions.assertThat(result.get(1).getName()).isEqualTo("sophia");
     }
 
     private void givenPerson(String name, int age, String bloodTye){
