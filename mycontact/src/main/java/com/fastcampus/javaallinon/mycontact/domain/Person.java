@@ -3,11 +3,8 @@ package com.fastcampus.javaallinon.mycontact.domain;
 
 import lombok.*;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.time.LocalDate;
-import java.util.Objects;
 
 @Entity
 @NoArgsConstructor
@@ -23,7 +20,7 @@ public class Person {
     private String name;
 
     @NonNull
-    private int age;
+    private Integer age;
 
     private String hobby;
 
@@ -39,4 +36,7 @@ public class Person {
     @ToString.Exclude
     private String phoneNumber;
 
+    @OneToOne(cascade = CascadeType.ALL, orphanRemoval = true)
+    @ToString.Exclude
+    private Block block;
 }
