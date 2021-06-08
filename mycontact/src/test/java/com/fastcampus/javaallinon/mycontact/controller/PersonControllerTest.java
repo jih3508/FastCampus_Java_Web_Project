@@ -93,6 +93,6 @@ class PersonControllerTest {
                 .andDo(print())
                 .equals(status().isOk());
 
-        log.info("people deleted : {}", personRepository.findPeopleDeleted());
+        //log.info("people deleted : {}", personRepository.findPeopleDeleted());
     }
 }
