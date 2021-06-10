@@ -1,5 +1,5 @@
 package com.fastcampus.javaallinon.mycontact.repository;
-
+/*
 import com.fastcampus.javaallinon.mycontact.domain.Block;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
@@ -9,7 +9,6 @@ import org.springframework.boot.test.context.SpringBootTest;
 import java.time.LocalDate;
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.*;
 
 @SpringBootTest
 class BlockRepositoryTest {
@@ -28,9 +27,9 @@ class BlockRepositoryTest {
 
         List<Block> blocks = blockRepository.findAll();
 
-        Assertions.assertThat(blocks.size()).isEqualTo(1);
+        Assertions.assertThat(blocks.size()).isEqualTo(3);
         Assertions.assertThat(blocks.get(0).getName()).isEqualTo("dennis");
         Assertions.assertThat(blocks.get(1).getName()).isEqualTo("sophia");
         Assertions.assertThat(blocks.get(2).getName()).isEqualTo("martin");
     }
-}
+}*/

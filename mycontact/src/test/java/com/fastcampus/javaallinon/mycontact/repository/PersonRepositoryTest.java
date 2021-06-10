@@ -23,19 +23,19 @@ class PersonRepositoryTest {
     void crud(){
         Person person = new Person();
         person.setName("john");
-        person.setAge(10);
-        person.setBloodType("A");
+        //person.setAge(10);
+        //person.setBloodType("A");
 
         personRepository.save(person);
 
         System.out.println(personRepository.findAll());
 
-        List<Person> people = personRepository.findAll();
+        List<Person> result = personRepository.findByName("john");
 
-        Assertions.assertThat(people.size()).isEqualTo(2);
-        Assertions.assertThat(people.get(1).getName()).isEqualTo("john");
-        Assertions.assertThat(people.get(1).getAge()).isEqualTo(10);
-        Assertions.assertThat(people.get(1).getBloodType()).isEqualTo("A");
+        Assertions.assertThat(result.size()).isEqualTo(1);
+        Assertions.assertThat(result.get(0).getName()).isEqualTo("john");
+        //Assertions.assertThat(result.get(1).getAge()).isEqualTo(10);
+        //Assertions.assertThat(result.get(0).getBloodType()).isEqualTo("A");
     }
 
    /* @Test
@@ -55,6 +55,7 @@ class PersonRepositoryTest {
     }
 */
 
+    /*
     @Test
     void findByBloodType(){
         givenPerson("martin", 10, "A");
@@ -65,8 +66,12 @@ class PersonRepositoryTest {
 
         List<Person> result = personRepository.findByBloodType("A");
 
+        Assertions.assertThat(result.size()).isEqualTo(2);
+        Assertions.assertThat(result.get(0).getName()).isEqualTo("martin");
+        Assertions.assertThat(result.get(1).getName()).isEqualTo("benny");
+
         result.forEach(System.out::println);
-    }
+    }*/
 
     @Test
     void findByBirthdayBetween(){
@@ -84,7 +89,7 @@ class PersonRepositoryTest {
         Assertions.assertThat(result.get(1).getName()).isEqualTo("sophia");
     }
 
-    private void givenPerson(String name, int age, String bloodTye){
+    /*private void givenPerson(String name, int age, String bloodTye){
         personRepository.save(new Person(name, age,bloodTye));
     }
 
@@ -92,5 +97,5 @@ class PersonRepositoryTest {
         Person person = new Person(name, age, bloodType);
         person.setBirthday(new Birthday(birthday));
         personRepository.save(person);
-    }
+    }*/
 }

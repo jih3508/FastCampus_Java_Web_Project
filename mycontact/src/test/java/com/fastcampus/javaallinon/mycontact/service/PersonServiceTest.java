@@ -24,19 +24,20 @@ class PersonServiceTest {
     @Autowired
     private BlockRepository blockRepository;
 
+    /*
     @Test
     void getPeopleExcludeBlocks(){
-//        givenPeople();
+        givenPeople();
 
         List<Person> result = personService.getPeopleExcludeBlocks();
 
-        Assertions.assertThat(result.size()).isEqualTo(3);
+        Assertions.assertThat(result.size()).isEqualTo(4);
         Assertions.assertThat(result.get(0).getName()).isEqualTo("martin");
         Assertions.assertThat(result.get(1).getName()).isEqualTo("david");
         Assertions.assertThat(result.get(2).getName()).isEqualTo("benny");
-//        System.out.println(result);
-//        result.forEach(System.out::println);
-    }
+        System.out.println(result);
+       result.forEach(System.out::println);
+    }*/
 
     @Test
     void getPeopleByName(){
@@ -46,6 +47,8 @@ class PersonServiceTest {
         Assertions.assertThat(result.size()).isEqualTo(1);
         Assertions.assertThat(result.get(0).getName()).isEqualTo("martin");
     }
+
+    /*
     @Test
     void  cascadeTest(){
         givenPeople();
@@ -61,15 +64,15 @@ class PersonServiceTest {
         personRepository.save(person);
         personRepository.findAll().forEach(System.out::println);
 
-//        personRepository.delete(person);
-//        personRepository.findAll().forEach(System.out::println);
-//        blockRepository.findAll().forEach(System.out::println);
+        personRepository.delete(person);
+        personRepository.findAll().forEach(System.out::println);
+        blockRepository.findAll().forEach(System.out::println);
 
         person.setBlock(null);
         personRepository.save(person);
         personRepository.findAll().forEach(System.out::println);
         blockRepository.findAll().forEach(System.out::println);
-    }
+    }*/
 
     @Test
     void getPerson(){
@@ -78,22 +81,22 @@ class PersonServiceTest {
         Assertions.assertThat(person.getName()).isEqualTo("dennis");
     }
 
-    private void givenPeople() {
+    /*private void givenPeople() {
         givenPerson("martin", 10, "A");
         givenPerson("david", 9, "B");
         givenBlockPerson("denis", 7, "O");
         givenBlockPerson("martin", 11, "AB");
-    }
+    }*/
 
-    private void givenPerson(String name, int age, String bloodType) {
+   /* private void givenPerson(String name, int age, String bloodType) {
         personRepository.save(new Person(name, age, bloodType));
-    }
+    }*/
 
-    private void givenBlockPerson(String name, int age, String bloodType){
+    /*private void givenBlockPerson(String name, int age, String bloodType){
         Person blockPerson = new Person(name, age, bloodType);
         blockPerson.setBlock(new Block(name));
 
         personRepository.save(blockPerson);
-    }
+    }*/
 
 }
