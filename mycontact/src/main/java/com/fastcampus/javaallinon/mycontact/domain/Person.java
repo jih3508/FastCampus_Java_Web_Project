@@ -48,8 +48,12 @@ public class Person {
 
     public void set(PersonDto personDto){
 
+        if(!StringUtils.isEmpty(personDto.getHobby())){
+            this.setHobby(personDto.getHobby());
+        }
+
         if(!StringUtils.isEmpty(personDto.getAddress())){
-            this.setAddress(personDto.getJob());
+            this.setAddress(personDto.getAddress());
         }
         if(!StringUtils.isEmpty(personDto.getJob())){
             this.setJob(personDto.getJob());
@@ -60,6 +64,7 @@ public class Person {
         if(personDto.getBirthday() != null){
             this.setBirthday(Birthday.of(personDto.getBirthday()));
         }
+
     }
 
     public Integer getAge() {
