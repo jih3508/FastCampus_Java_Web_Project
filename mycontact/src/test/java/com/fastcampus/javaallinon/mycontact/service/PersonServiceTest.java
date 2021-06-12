@@ -3,10 +3,11 @@ package com.fastcampus.javaallinon.mycontact.service;
 import com.fastcampus.javaallinon.mycontact.controller.dto.PersonDto;
 import com.fastcampus.javaallinon.mycontact.domain.Person;
 import com.fastcampus.javaallinon.mycontact.domain.dto.Birthday;
+import com.fastcampus.javaallinon.mycontact.exception.PersonNotFoundException;
+import com.fastcampus.javaallinon.mycontact.exception.RenameIsNotPermittedException;
 import com.fastcampus.javaallinon.mycontact.repository.PersonRepository;
 import org.assertj.core.api.Assertions;
 import org.assertj.core.util.Lists;
-import org.junit.jupiter.api.Assumptions;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.ArgumentMatcher;
@@ -81,7 +82,7 @@ class PersonServiceTest {
         when(personRepository.findById(1L))
                 .thenReturn(Optional.of(new Person("tony")));
 
-        org.junit.jupiter.api.Assertions.assertThrows(RuntimeException.class, ()->personService.modify(1L, mockPersonDto()));
+        org.junit.jupiter.api.Assertions.assertThrows(RenameIsNotPermittedException.class, ()->personService.modify(1L, mockPersonDto()));
     }
 
     @Test
@@ -102,7 +103,7 @@ class PersonServiceTest {
         when(personRepository.findById(1L))
                 .thenReturn(Optional.empty());
 
-        org.junit.jupiter.api.Assertions.assertThrows(RuntimeException.class, () -> personService.modify(1L, "daniel"));
+        org.junit.jupiter.api.Assertions.assertThrows(PersonNotFoundException.class, () -> personService.modify(1L, "daniel"));
     }
 
     @Test
@@ -120,7 +121,7 @@ class PersonServiceTest {
         when(personRepository.findById(1L))
                 .thenReturn(Optional.empty());
 
-        org.junit.jupiter.api.Assertions.assertThrows(RuntimeException.class, () -> personService.delete(1L));
+        org.junit.jupiter.api.Assertions.assertThrows(PersonNotFoundException.class, () -> personService.delete(1L));
     }
 
     @Test
