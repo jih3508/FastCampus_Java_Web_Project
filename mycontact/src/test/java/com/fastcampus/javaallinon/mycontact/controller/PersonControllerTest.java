@@ -127,7 +127,7 @@ class PersonControllerTest {
     }
 
     @Test
-    void modifyPersonIfNameIsDifferent() throws Exception{
+    void modifyPersonIfNameIsDifferent() throws Exception {
         PersonDto dto = PersonDto.of("martin", "programming", "판교", LocalDate.now(), "programmer", "010-1111-2222");
 
         Assertions.assertThrows(NestedServletException.class, () ->

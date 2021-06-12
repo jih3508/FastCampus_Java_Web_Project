@@ -1,46 +1,38 @@
 package com.fastcampus.javaallinon.mycontact.service;
 
-import com.fastcampus.javaallinon.mycontact.domain.Block;
+import com.fastcampus.javaallinon.mycontact.controller.dto.PersonDto;
 import com.fastcampus.javaallinon.mycontact.domain.Person;
-import com.fastcampus.javaallinon.mycontact.repository.BlockRepository;
+import com.fastcampus.javaallinon.mycontact.domain.dto.Birthday;
 import com.fastcampus.javaallinon.mycontact.repository.PersonRepository;
 import org.assertj.core.api.Assertions;
+import org.assertj.core.util.Lists;
+import org.junit.jupiter.api.Assumptions;
 import org.junit.jupiter.api.Test;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.transaction.annotation.Transactional;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.ArgumentMatcher;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
+import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Optional;
 
-@Transactional
-@SpringBootTest
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.Mockito.*;
+
+@ExtendWith(MockitoExtension.class)
 class PersonServiceTest {
 
-    @Autowired
+    @InjectMocks
     private PersonService personService;
-    @Autowired
+    @Mock
     private PersonRepository personRepository;
-    @Autowired
-    private BlockRepository blockRepository;
-
-    /*
-    @Test
-    void getPeopleExcludeBlocks(){
-        givenPeople();
-
-        List<Person> result = personService.getPeopleExcludeBlocks();
-
-        Assertions.assertThat(result.size()).isEqualTo(4);
-        Assertions.assertThat(result.get(0).getName()).isEqualTo("martin");
-        Assertions.assertThat(result.get(1).getName()).isEqualTo("david");
-        Assertions.assertThat(result.get(2).getName()).isEqualTo("benny");
-        System.out.println(result);
-       result.forEach(System.out::println);
-    }*/
 
     @Test
     void getPeopleByName(){
+        when(personRepository.findByName("martin"))
+                .thenReturn(Lists.newArrayList(new Person("martin")));
 
         List<Person> result = personService.getPeopleByName("martin");
 
@@ -48,55 +40,150 @@ class PersonServiceTest {
         Assertions.assertThat(result.get(0).getName()).isEqualTo("martin");
     }
 
-    /*
-    @Test
-    void  cascadeTest(){
-        givenPeople();
-
-        List<Person> result = personRepository.findAll();
-
-        result.forEach(System.out::println);
-
-        Person person = result.get(3);
-        person.getBlock().setStartDate(LocalDate.now());
-        person.getBlock().setEndDate(LocalDate.now());
-
-        personRepository.save(person);
-        personRepository.findAll().forEach(System.out::println);
-
-        personRepository.delete(person);
-        personRepository.findAll().forEach(System.out::println);
-        blockRepository.findAll().forEach(System.out::println);
-
-        person.setBlock(null);
-        personRepository.save(person);
-        personRepository.findAll().forEach(System.out::println);
-        blockRepository.findAll().forEach(System.out::println);
-    }*/
-
     @Test
     void getPerson(){
-        Person person = personService.getPerson(3L);
+        when(personRepository.findById(1L))
+                .thenReturn(Optional.of(new Person("martin")));
 
-        Assertions.assertThat(person.getName()).isEqualTo("dennis");
+        Person person = personService.getPerson(1L);
+
+        Assertions.assertThat(person.getName()).isEqualTo("martin");
     }
 
-    /*private void givenPeople() {
-        givenPerson("martin", 10, "A");
-        givenPerson("david", 9, "B");
-        givenBlockPerson("denis", 7, "O");
-        givenBlockPerson("martin", 11, "AB");
-    }*/
+    @Test
+    void getPrsonIfNoFount(){
+        when(personRepository.findById(1L))
+                .thenReturn(Optional.empty());
 
-   /* private void givenPerson(String name, int age, String bloodType) {
-        personRepository.save(new Person(name, age, bloodType));
-    }*/
+        Person person = personService.getPerson(1L);
 
-    /*private void givenBlockPerson(String name, int age, String bloodType){
-        Person blockPerson = new Person(name, age, bloodType);
-        blockPerson.setBlock(new Block(name));
+        Assertions.assertThat(person).isNull();
+    }
 
-        personRepository.save(blockPerson);
-    }*/
+    @Test
+    void put(){
+        personService.put(mockPersonDto());
 
+        verify(personRepository, times(1)).save(argThat(new IsPersonWillBeInserted()));
+    }
+
+    @Test
+    void modifyIfIfPersonNotFound(){
+        when(personRepository.findById(1L))
+                .thenReturn(Optional.empty());
+
+        org.junit.jupiter.api.Assertions.assertThrows(RuntimeException.class, ()->personService.modify(1L, mockPersonDto()));
+
+    }
+
+    @Test
+    void modifyIfNameIsDifferent(){
+        when(personRepository.findById(1L))
+                .thenReturn(Optional.of(new Person("tony")));
+
+        org.junit.jupiter.api.Assertions.assertThrows(RuntimeException.class, ()->personService.modify(1L, mockPersonDto()));
+    }
+
+    @Test
+    void modify(){
+        when(personRepository.findById(1L))
+                .thenReturn(Optional.of(new Person("martin")));
+
+        personService.modify(1L, mockPersonDto());
+
+        verify(personRepository, times(1)).save(any(Person.class));
+        verify(personRepository, times(1)).save(argThat(new IsPersonWillBeUpdated()));
+
+
+    }
+
+    @Test
+    void modifyByNameIfPersonNotFound(){
+        when(personRepository.findById(1L))
+                .thenReturn(Optional.empty());
+
+        org.junit.jupiter.api.Assertions.assertThrows(RuntimeException.class, () -> personService.modify(1L, "daniel"));
+    }
+
+    @Test
+    void modifyByName(){
+        when(personRepository.findById(1L))
+                .thenReturn(Optional.of(new Person("martin")));
+
+        personService.modify(1L, "daniel");
+
+        verify(personRepository, times(1)).save(argThat(new IsNameWillBeUpdated()));
+    }
+
+    @Test
+    void deleteIfPersonNotFound(){
+        when(personRepository.findById(1L))
+                .thenReturn(Optional.empty());
+
+        org.junit.jupiter.api.Assertions.assertThrows(RuntimeException.class, () -> personService.delete(1L));
+    }
+
+    @Test
+    void delete(){
+        when(personRepository.findById(1L))
+                .thenReturn(Optional.of(new Person("martin")));
+
+        personService.delete(1L);
+
+        verify(personRepository, times(1)).save(argThat(new IsPersonWillBeDeleted()));
+    }
+
+    private static class  IsPersonWillBeUpdated implements ArgumentMatcher<Person>{
+
+        @Override
+        public boolean matches(Person person) {
+            return equals(person.getName(), "martin")
+                    && equals(person.getHobby(),"programming")
+                    && equals(person.getAddress(),"판교")
+                    && equals(person.getBirthday(), Birthday.of(LocalDate.now()))
+                    && equals(person.getJob(), "programmer")
+                    && equals(person.getPhoneNumber(), "010-1111-2222");
+        }
+
+        private boolean equals(Object actual, Object expexted){
+            return expexted.equals(actual);
+        }
+    }
+
+    private PersonDto mockPersonDto(){
+        return PersonDto.of("martin", "programming", "판교", LocalDate.now(), "programmer", "010-1111-2222");
+    }
+
+    private static class IsPersonWillBeInserted implements ArgumentMatcher<Person>{
+
+        @Override
+        public boolean matches(Person person) {
+            return equals(person.getName(), "martin")
+                    && equals(person.getHobby(), "programming")
+                    && equals(person.getAddress(), "판교")
+                    && equals(person.getBirthday(), Birthday.of(LocalDate.now()))
+                    && equals(person.getJob(), "programmer")
+                    && equals(person.getPhoneNumber(), "010-1111-2222");
+        }
+
+        private boolean equals(Object actual, Object expected){
+            return expected.equals(actual);
+        }
+    }
+
+    private static class IsNameWillBeUpdated implements ArgumentMatcher<Person>{
+
+        @Override
+        public boolean matches(Person person) {
+            return person.getName().equals("daniel");
+        }
+    }
+
+    private static class IsPersonWillBeDeleted implements ArgumentMatcher<Person>{
+
+        @Override
+        public boolean matches(Person person) {
+            return person.isDeleted();
+        }
+    }
 }

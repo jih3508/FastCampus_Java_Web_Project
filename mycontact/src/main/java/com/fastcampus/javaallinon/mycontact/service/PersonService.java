@@ -24,10 +24,6 @@ public class PersonService {
     @Autowired
     private BlockRepository blockRepository;
 
-    /*
-    public List<Person> getPeopleExcludeBlocks(){
-        return  personRepository.findByBlockIsNull();
-    }*/
 
     public List<Person> getPeopleByName(String name){
         return personRepository.findByName(name);
@@ -35,11 +31,8 @@ public class PersonService {
 
     @Transactional(readOnly = true)
     public Person getPerson(Long id){
-//        Person person = personRepository.findById(id).get();
 
         Person person = personRepository.findById(id).orElse(null);
-
-        log.info("person : {}", person);
 
         return person;
     }
@@ -59,16 +52,6 @@ public class PersonService {
         if(!person.getName().equals(person.getName())){
             throw new RuntimeException("이름이 다릅니다.");
         }
-//        personAtDb.setName(personDto.getName());
-//        personAtDb.setPhoneNumber(personDto.getPhoneNumber());
-//        personAtDb.setJob(personDto.getJob());
-//        if(personDto.getBirthday() != null){
-//            personAtDb.setBirthday(new Birthday(personDto.getBirthday()));
-//        }
-//        personAtDb.setAddress(personDto.getAddress());
-//        personAtDb.setBloodType(personDto.getBloodType());
-//        personAtDb.setHobby(personDto.getHobby());
-//        personAtDb.setAge(personDto.getAge());
 
         person.set(personDto);
 
