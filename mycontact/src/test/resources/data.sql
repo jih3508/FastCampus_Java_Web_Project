@@ -6,6 +6,4 @@ insert into person(`id`, `name`, `year_of_birthday`, `month_of_birthday`, `day_o
 insert into person(`id`, `name`, `year_of_birthday`, `month_of_birthday`, `day_of_birthday`,`job`, `hobby`, `phone_number`, `address`)
      values(6, 'tony', 1991, 7, 10, 'office', 'reading', '010-2222-5555', '서울');
 insert into person(`id`, `name`, `deleted`) values (7,'andrew', true);
-insert into person(`id`, `name`, `year_of_birthday`, `month_of_birthday`, `day_of_birthday`) values (8, 'a', 1997, 6, 15);
-insert into person(`id`, `name`, `year_of_birthday`, `month_of_birthday`, `day_of_birthday`) values (9, 'b', 1995, 6, 16);
 
