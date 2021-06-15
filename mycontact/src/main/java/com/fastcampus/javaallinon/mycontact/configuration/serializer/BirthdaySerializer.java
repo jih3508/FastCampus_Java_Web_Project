@@ -13,7 +13,6 @@ public class BirthdaySerializer extends JsonSerializer<Birthday> {
     public void serialize(Birthday value, JsonGenerator gen, SerializerProvider serializers) throws IOException {
         if (value != null) {
             gen.writeObject(LocalDate.of(value.getYearOfBirthday(), value.getMonthOfBirthday(), value.getDayOfBirthday()));
-
         }
     }
 }

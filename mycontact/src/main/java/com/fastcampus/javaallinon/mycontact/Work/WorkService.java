@@ -21,11 +21,11 @@ public class WorkService {
     public List<Person> findBirthdayFriends() {
         LocalDate tomorrow = LocalDate.now().plusDays(1);
         LocalDate today = LocalDate.now();
-        return personRepository.findByBirthdayBetweeTodayAndTommorrw(LocalDate.now().getMonthValue(), LocalDate.now().getDayOfMonth()
+        return personRepository.findByBirthdayBetweenTodayAndTomorrow(LocalDate.now().getMonthValue(), LocalDate.now().getDayOfMonth()
         , tomorrow.getMonthValue(), tomorrow.getDayOfMonth());
     }
 
-    @Transactional
+    @Transactional // 방법2 해당되는 달/월을 불려서 오늘 내일 생일인 사람을 필터링을 한다.
     public List<Person> findBirthdayFriends2() {
         LocalDate tomorrow = LocalDate.now().plusDays(1);
         LocalDate today = LocalDate.now();

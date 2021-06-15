@@ -44,7 +44,6 @@ class PersonControllerTest {
     @Autowired
     private ObjectMapper objectMapper;
 
-
     @Autowired
     private WebApplicationContext wac;
 

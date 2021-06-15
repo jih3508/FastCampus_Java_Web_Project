@@ -28,13 +28,11 @@ public interface PersonRepository extends JpaRepository<Person, Long> {
     @Query(value = "select * from Person person where person.deleted = true", nativeQuery = true )
     List<Person> findPeopleDeleted();
 
-    @Query(value = "select * from Person person where (person.birthday.monthOfBirthday = :todayOfMonth and person.birthday.dayOfBirthday = :todayOfday) or " +
-            "(person.birthday.monthOfBirthday = :tomorrowOfMonth and person.birthday.dayOfBirthday = :tommorrowOfDay)")
-    List<Person> findByBirthdayBetweeTodayAndTommorrw(@Param("todayOfMonth") int todayOfMonth, @Param("todayOfDay") int todayOfDay,
+    @Query(value = "select person from Person person where (person.birthday.monthOfBirthday = :todayOfMonth and person.birthday.dayOfBirthday = :todayOfDay) or (person.birthday.monthOfBirthday = :tomorrowOfMonth and person.birthday.dayOfBirthday = :tomorrowOfDay)")
+    List<Person> findByBirthdayBetweenTodayAndTomorrow(@Param("todayOfMonth") int todayOfMonth, @Param("todayOfDay") int todayOfDay,
                                                       @Param("tomorrowOfMonth") int tomorrowOfMonth, @Param("tomorrowOfDay") int tomorrowOfDay);
 
-    @Query(value = "select person from Person person where person.birthday.monthOfBirthday = :todayMonthOfBirthday " +
-            "or person.birthday.monthOfBirthday =:tomorrowMonthOfBirthday")
+    @Query(value = "select person from Person person where person.birthday.monthOfBirthday = :todayMonthOfBirthday or person.birthday.monthOfBirthday =:tomorrowMonthOfBirthday")
     List<Person> findByMonthOfBirthdays(@Param("todayMonthOfBirthday") int todayMonthOfBirthday, @Param("tomorrowMonthOfBirthday") int tomorrowMonthOfBirthday);
 
 
