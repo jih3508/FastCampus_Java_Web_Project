@@ -34,13 +34,12 @@
  유니코드(Unicode)를 위한 문자셋인 UTF-8이 가장 많이 사용됨.|
  |content|content="정보값"|meta 정보의 내용을 지정합니다.|
  |name|name="정보 이름"|몇 개의 meta 정보의 이름을 정할 수 있으며 지정하지 않으면 http-equiv 와 같은 기능을 합니다.|
- |http-equiv|http-equiv="항목명"|웹 브라우저가 서버에 명령을 내리는 속성으로 name 속성을 대신하여 사용될 수 있으며, HTML 문서가 응답 헤더와 함께 웹 서버로부터 웹 브라우저에 전송되었을 때에만 의미를 갖습니다.|
+ |http-equiv|http-equiv="항목명"|웹 브라우저가 서버에 명령을 내리는 속성으로 name 속성을 대신하여 사용될 수 있으며,  HTML 문서가 응답 헤더와 함께 웹 서버로부터 웹 브라우저에 전송되었을 때에만 의미를 갖습니다.|
 
  #### link
  |link tag|선언 방식|설명|
  |---|---| --- |
- |rel|rel ="stylesheet"|rel 속성은 현재 문서와 외부 리소스 사이의 연관 관계를 명시합니다.
- 필수 속성이라서 반드시 있어야 한다.|
+ |rel|rel ="stylesheet"|rel 속성은 현재 문서와 외부 리소스 사이의 연관 관계를 명시합니다.  필수 속성이라서 반드시 있어야 한다.|
  |href|href ="./파일명"|파일 위치 경로를 입력한다. (절대경로, 상대 경로)|
 
  #### style
@@ -56,4 +55,3 @@
 <base href="./css/">
 <link rel="stylesheet" href="main.css">
 ```
-url("../img/bg-small.jpg")
