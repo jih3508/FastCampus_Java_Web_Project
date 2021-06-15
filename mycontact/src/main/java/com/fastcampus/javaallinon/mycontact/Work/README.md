@@ -1,57 +1,7 @@
-# HTML / 개요, 요소 - 주요범위 & 메타데이터
-## 블록(Block), 인라인(Inline)
-### 블록
- 1. DIV, H1, P
- 2. 사용 가능한 최대 가로 너비를 사용한다.
- 3. 크기를 지정할 수 있다.
- 4. (width:100%; height:0 으로 시작)
- 5. 수직으로 쌓임
- 6. magin, padding 위, 아레, 좌, 우 사용 가능하다.
- 7. 레이아웃
-### 인라인
- 1. SPAN, IMG
- 2. 필요한 만큼의 너비를 사용한다.
- 3. 크기를 지정할 수 없다.
- 4. (Width: 0; height: 0; 로 시작)
- 5. 수평으로 쌓임
- 6. margin, padding 위, 아래는 사용을 할 수 없다.
- 7. TEXT
-
- ### 주요범위 & 메타데이터
- - HTML: 웹 문서
- - HEAD: html 정보
- - BODY: html 뷰
- - TITLE: 웹 제목
- ### 메타데이터
- #### meta tag
- ##### 서버와 웹 브라우저간에 상호 교환되는 정보를 정의하는데 사용합니다.
-
-##### HTML 문서의 <head>와 </head> 사이에 입력하는 특수 태그로서 사이트의 디자인에는 전혀 영향을 미치지 않고 문서가 어떤 내용을 담고 있고, 문서의 키워드는 무엇이며, 누가 만들었는지 등의 문서 자체의 특성을 담고 있습니다.
-
- |메타 태그|선언 방식|설명|
- |charset|<meta charset="문자셋">|	HTML 문서의 문자 인코딩 방식을 명시함. 
- 유니코드(Unicode)를 위한 문자셋인 UTF-8이 가장 많이 사용됨.|
- |content|content="정보값"|meta 정보의 내용을 지정합니다.|
- |name|name="정보 이름"|몇 개의 meta 정보의 이름을 정할 수 있으며 지정하지 않으면 http-equiv 와 같은 기능을 합니다.|
- |http-equiv|http-equiv="항목명"|웹 브라우저가 서버에 명령을 내리는 속성으로 name 속성을 대신하여 사용될 수 있으며, HTML 문서가 응답 헤더와 함께 웹 서버로부터 웹 브라우저에 전송되었을 때에만 의미를 갖습니다.|
-
- #### link
- |link tag|선언 방식|설명|
- |rel|rel ="stylesheet"|rel 속성은 현재 문서와 외부 리소스 사이의 연관 관계를 명시합니다.
- 필수 속성이라서 반드시 있어야 한다.|
- |href|href ="./파일명"|파일 위치 경로를 입력한다. (절대경로, 상대 경로)|
-
- #### style
- ##### css, 스타일 정보를 포함한다.
-
-#### MIME Type
-##### 라이언트에게 전송된 문서의 다양성을 알려주기 위한 메커니즘입니다: 웹에서 파일의 확장자는 별  의미가 없습니다.
-
-#### BASE
-##### 문서 안의 모든 상대 URL이 사용할 기준 URL을 지정합니다. 문서에는 하나의 <base> 요소만 존재할 수 있습니다.
-##### 한번만 사용 가능하다.
-```
-<base href="./css/">
-<link rel="stylesheet" href="main.css">
-```
-url("../img/bg-small.jpg")
+## dada.sql 추가
+- insert into person(`id`, `name`, `year_of_birthday`, `month_of_birthday`, `day_of_birthday`) values (8, 'a', 1997, 6, 15);
+- insert into person(`id`, `name`, `year_of_birthday`, `month_of_birthday`, `day_of_birthday`) values (9, 'b', 1995, 6, 16);
+## 테스트 성공 화면
+![테스트](https://github.com/jih3508/FastCampus_Java_Web_Project/blob/main/mycontact/src/main/java/com/fastcampus/javaallinon/mycontact/Work/MockMVC%ED%85%8C%EC%8A%A4%ED%8A%B8%20%EA%B2%B0%EA%B3%BC.PNG)
+## data.spl 추가 화면
+![SQL 추가](https://github.com/jih3508/FastCampus_Java_Web_Project/blob/main/mycontact/src/main/java/com/fastcampus/javaallinon/mycontact/Work/data.spq%20%EC%8B%A4%ED%96%89%20%EA%B2%B0%EA%B3%BC.PNG)
