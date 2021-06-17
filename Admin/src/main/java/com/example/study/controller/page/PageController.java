@@ -17,15 +17,13 @@ public class PageController {
     public ModelAndView index() {
         return new ModelAndView("/pages/main")
                 .addObject("menuList", adminMenuService.getAdminMenu())
-                .addObject("code", "main")
-                ;
+                .addObject("code", "main");
     }
 
     @RequestMapping("/user")
     public ModelAndView user() {
         return new ModelAndView("/pages/user")
                 .addObject("menuList", adminMenuService.getAdminMenu())
-                .addObject("code", "user")
-                ;
+                .addObject("code", "user");
     }
 }

@@ -7,6 +7,10 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.time.LocalDateTime;
+import java.util.Optional;
+
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class ParterRepositoryTest extends StudyApplicationTests {
 
@@ -25,7 +29,7 @@ public class ParterRepositoryTest extends StudyApplicationTests {
         LocalDateTime registeredAt = LocalDateTime.now();
         LocalDateTime createdAt = LocalDateTime.now();
         String createdBy = "AdminServer";
-        Long categoryId = 1L;
+        //Long categoryId = 1L;
 
         Partner partner = new Partner();
         partner.setName(name);
@@ -48,7 +52,44 @@ public class ParterRepositoryTest extends StudyApplicationTests {
 
     @Test
     public void read(){
+        Optional<Partner> partner = partnerRepository.findByBusinessNumber("1234567890123");
+
+        assertTrue(partner.isPresent());
+
 
     }
+
+    @Test
+    void update(){
+        Optional<Partner> updatePartner = partnerRepository.findById(2L);
+
+        updatePartner.ifPresent(partner -> {
+            partner.setName("Partner02");
+            partner.setCeoName("이지은");
+            partner.setAddress("성남 판교");
+            partner.setUpdatedAt(LocalDateTime.now());
+            partner.setUpdatedBy("IU fan");
+
+            Partner savePartner = partnerRepository.save(partner);
+
+            System.out.println(savePartner);
+        });
+    }
+
+    @Test
+    void delete(){
+        Optional<Partner> deletePartner = partnerRepository.findByBusinessNumber("123412341234");
+
+        System.out.println("삭제될 레코드:" + deletePartner);
+
+        deletePartner.ifPresent(partner -> partnerRepository.delete(partner));
+
+        Optional<Partner> checkPartner =  partnerRepository.findById(3L);
+
+        assertFalse(checkPartner.isPresent());
+
+    }
+
+
 
 }

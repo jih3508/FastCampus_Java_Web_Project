@@ -7,6 +7,9 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.time.LocalDateTime;
+import java.util.Optional;
+
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 public class AdminUserRepositoryTest extends StudyApplicationTests {
 
@@ -28,5 +31,44 @@ public class AdminUserRepositoryTest extends StudyApplicationTests {
 
         newAdminUser.setAccount("CHANGE");
         adminUserRepository.save(newAdminUser);
+    }
+
+    @Test
+    void read(){
+
+        Optional<AdminUser> checkAdminUser = adminUserRepository.findById(2L);
+
+        assertNotNull(checkAdminUser);
+    }
+
+    @Test
+    void update(){
+
+        Optional<AdminUser> checkAdminUser = adminUserRepository.findById(2L);
+
+        checkAdminUser.ifPresent(adminUser -> {
+            adminUser.setRole("MASTER");
+            adminUser.setUpdatedAt(LocalDateTime.now());
+            adminUser.setUpdatedBy("AdminSeverManage01");
+
+            AdminUser newAdminUser = adminUserRepository.save(adminUser);
+            System.out.println(newAdminUser);
+            assertNotNull(newAdminUser);
+        });
+    }
+
+    @Test
+    void delete(){
+
+        Optional<AdminUser> checkAdminUser = adminUserRepository.findById(3L);
+
+        System.out.println(checkAdminUser);
+        assertNotNull(checkAdminUser);
+
+        checkAdminUser.ifPresent(adminUser -> adminUserRepository.delete(adminUser));
+
+        checkAdminUser = adminUserRepository.findById(3L);
+
+        assertNotNull(checkAdminUser);
     }
 }

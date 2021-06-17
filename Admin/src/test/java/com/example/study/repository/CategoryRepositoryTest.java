@@ -9,6 +9,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import java.time.LocalDateTime;
 import java.util.Optional;
 
+import static org.junit.jupiter.api.Assertions.*;
+
 public class CategoryRepositoryTest extends StudyApplicationTests {
 
     @Autowired
@@ -53,4 +55,42 @@ public class CategoryRepositoryTest extends StudyApplicationTests {
             System.out.println(c.getTitle());
         });
     }
+
+    @Test
+    public void update(){
+        Optional<Category> optionalCategory = categoryRepository.findById(2L);
+
+        optionalCategory.ifPresent( category -> {
+            category.setType("MOBILE_PHONE");
+            category.setUpdatedAt(LocalDateTime.now());
+            category.setUpdatedBy("SmartPhone CEO");
+
+            categoryRepository.save(category);
+        });
+
+        Optional<Category> category = categoryRepository.findByType("MOBILE_PHONE");
+        category.ifPresent(checkCategory -> {
+            System.out.println(checkCategory);
+        });
+
+        assertTrue(category.isPresent());
+    }
+
+    @Test
+    void delete(){
+        Optional<Category> optionalCategory = categoryRepository.findById(3L);
+
+        assertNotNull(optionalCategory);
+
+        optionalCategory.ifPresent(category -> {
+            System.out.println(category);
+            categoryRepository.delete(category);
+        });
+
+        Optional<Category> category = categoryRepository.findById(3L);
+
+        assertFalse(category.isPresent());
+    }
+
+
 }
