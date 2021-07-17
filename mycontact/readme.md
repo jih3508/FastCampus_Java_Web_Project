@@ -67,3 +67,40 @@ public class WorkService {
     @Query(value = "select person from Person person where person.birthday.monthOfBirthday = :todayMonthOfBirthday or person.birthday.monthOfBirthday =:tomorrowMonthOfBirthday")
     List<Person> findByMonthOfBirthdays(@Param("todayMonthOfBirthday") int todayMonthOfBirthday, @Param("tomorrowMonthOfBirthday") int tomorrowMonthOfBirthday);
 ```
+
+### TDD
+```java
+@SpringBootTest
+@Transactional
+public class WorkControllerTest {
+
+    @Autowired
+    private WorkController workController;
+
+    @Autowired
+    private PersonRepository personRepository;
+
+    @Autowired
+    private ObjectMapper objectMapper;
+
+    @Autowired
+    private WebApplicationContext webApplicationContext;
+
+    private MockMvc mockMvc;
+
+    @BeforeEach
+    void beforeEach() {
+        mockMvc = MockMvcBuilders
+                .webAppContextSetup(webApplicationContext)
+                .alwaysDo(print())
+                .build();
+    }
+
+    @Test
+    void findBirthdayFriends() throws Exception{
+        mockMvc.perform(
+                MockMvcRequestBuilders.get("/api/person/birthday-friends"))
+                .andExpect(status().isOk());
+    }
+}
+```
